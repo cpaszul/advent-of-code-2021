@@ -1,6 +1,6 @@
 DEFAULT_INPUT = 'day1.txt'
 
-def day_1(loc: str = DEFAULT_INPUT) -> int:
+def day_1(loc: str = DEFAULT_INPUT) -> tuple[int, int]:
     with open(loc) as f:
         depths = [int(line) for line in f.readlines()]
     sums = [a + b + c for a, b, c in zip(depths, depths[1:], depths[2:])]
