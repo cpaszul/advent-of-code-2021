@@ -1,5 +1,3 @@
-from functools import cache
-
 DEFAULT_INPUT = 'day7.txt'
 
 def part_1(loc: str = DEFAULT_INPUT) -> int:
@@ -25,16 +23,7 @@ def part_2(loc: str = DEFAULT_INPUT) -> int:
     return costs[0]
 
 def alignment_cost(nums: list[int], position: int) -> int:
-    return sum(fuel_cost(abs(n - position)) for n in nums)
-
-@cache
-def fuel_cost(steps: int) -> int:
-    total = 0
-    i = 1
-    while i <= steps:
-        total += i
-        i += 1
-    return total
+    return sum(abs(n - position) * (abs(n - position) + 1) // 2 for n in nums)
 
 if __name__ == '__main__':
     print('Solution for Part One:', part_1())
