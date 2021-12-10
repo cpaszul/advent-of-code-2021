@@ -2,7 +2,7 @@ from collections import deque
 
 DEFAULT_INPUT = 'day10.txt'
 
-def day_10(loc: str = DEFAULT_INPUT) -> int:
+def day_10(loc: str = DEFAULT_INPUT) -> tuple[int, int]:
     with open(loc) as f:
         lines = list(line.rstrip() for line in f.readlines())
     error_scores = {')': 3, ']': 57, '}': 1197, '>': 25137}
