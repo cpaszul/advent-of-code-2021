@@ -19,9 +19,10 @@ def part_1(loc: str = DEFAULT_INPUT) -> int:
         visited.add(point)
         all_adj = adjacent(*point, 100)
         for adj in all_adj:
-            i, j = adj
-            new_state = (risk + grid[j][i], adj)
-            heapq.heappush(h, new_state)
+            if adj not in visited:
+                i, j = adj
+                new_state = (risk + grid[j][i], adj)
+                heapq.heappush(h, new_state)
 
 def adjacent(x: int, y: int, max_size: int) -> list[tuple[int, int]]:
     potential = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
@@ -44,9 +45,10 @@ def part_2(loc: str = DEFAULT_INPUT) -> int:
         visited.add(point)
         all_adj = adjacent(*point, 500)
         for adj in all_adj:
-            i, j = adj
-            new_state = (risk + get_risk(grid, i, j), adj)
-            heapq.heappush(h, new_state)
+            if adj not in visited:
+                i, j = adj
+                new_state = (risk + get_risk(grid, i, j), adj)
+                heapq.heappush(h, new_state)
 
 def get_risk(grid: list[list[int]], x: int, y: int) -> int:
     x_base = x % 100
