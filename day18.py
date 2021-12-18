@@ -13,16 +13,20 @@ class Snail:
         return ''.join(str(ele) if isinstance(ele, int) else ele for ele in self.snail)
 
     def reduce(self) -> None:
-        if i := self.has_four_depth():
-            self.explode(i)
-            self.reduce()
-        to_split = []
-        for index, ele in enumerate(self.snail):
-            if isinstance(ele, int) and ele > 9:
-                to_split.append(index)
-        if to_split:
-            self.split(to_split[0])
-            self.reduce()
+        needs_reduce = True
+        while needs_reduce:
+            if i := self.has_four_depth():
+                self.explode(i)
+                continue
+            to_split = None
+            for index, ele in enumerate(self.snail):
+                if isinstance(ele, int) and ele > 9:
+                    to_split = index
+                    break
+            if to_split is not None:
+                self.split(to_split)
+                continue
+            needs_reduce = False
 
     def explode(self, i: int) -> None:
         num_1 = self.snail[i + 1]
@@ -57,7 +61,7 @@ class Snail:
         return 0
 
     def split(self, i: int) -> None:
-        num = self.snail[i]/2
+        num = self.snail[i] / 2
         self.snail = self.snail[:i] + ['['] + [floor(num)] + [','] + [ceil(num)] + [']'] + self.snail[i + 1:]
 
     def __add__(self, other):
@@ -68,7 +72,8 @@ class Snail:
 
     def magnitude(self) -> int:
         mag = str(self)
-        while s := re.search(r'\[\d+,\d+\]', mag):
+        pair_pattern = re.compile(r'\[\d+,\d+\]')
+        while s := pair_pattern.search(mag):
             i = s.start()
             j = s.end()
             left, right = map(int, mag[i + 1:j - 1].split(','))
