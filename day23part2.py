@@ -58,16 +58,16 @@ def part_2(loc: str = DEFAULT_INPUT) -> int:
         seen.add(state)
         can_move = set()
         for a in a_s:
-            if a != (3, 3) and a_s != A_FINAL:
+            if a != (3, 5) and a_s != A_FINAL:
                 can_move.add((a, 'A'))
         for b in b_s:
-            if b != (5, 3) and b_s != B_FINAL:
+            if b != (5, 5) and b_s != B_FINAL:
                 can_move.add((b, 'B'))
         for c in c_s:
-            if c != (7, 3) and c_s != C_FINAL:
+            if c != (7, 5) and c_s != C_FINAL:
                 can_move.add((c, 'C'))
         for d in d_s:
-            if d != (9, 3) and d_s != D_FINAL:
+            if d != (9, 5) and d_s != D_FINAL:
                 can_move.add((d, 'D'))
         for point, amphi_type in can_move:
             destinations = get_valid_moves(state, point, amphi_type)
